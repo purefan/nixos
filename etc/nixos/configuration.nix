@@ -142,11 +142,39 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Try to auto-mount behe
-  fileSystems."/run/media/behe" = {
+  fileSystems."/behe" = {
     device = "/dev/disk/by-label/behe";
     fsType = "ntfs";
-    options = [ "rw" "uid=1000" ];
+    options = [ 
+      "rw" 
+#      "uid=1000" 
+#      "noauto" #dont mount until needed
+#      "nodiratime"
+#      "noatime"
+#      "_netdev" # wait for network
+      "x-systemd.automount" # mount when accessed
+    ];
   }; 
+
+  fileSystems."/newbehe" = {
+    device = "/dev/disk/by-label/newbehe";
+    fsType = "ext4";
+    options = [
+      "rw"
+      "users"
+      "x-systemd.automount" # mount when accessed
+      "x-initrd.mount"
+      "defaults"
+    ];
+  };
+
+#  services.udisks2.settings = {
+#    "mount_options.conf" = {
+#      defaults = {
+#        ntfs_defaults = "uid=$UID,gid=$GID,noatime,prealloc";
+#      };
+#    };
+#  };
   # https://discourse.nixos.org/t/how-to-automatically-mount-external-hard-drive/15563/3 : 
   services.udisks2.enable = true;
   services.gvfs.enable = true;
