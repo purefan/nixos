@@ -1,0 +1,57 @@
+[purefan@nixos:~]$ sudo cat /etc/fstab 
+[sudo] password for purefan: 
+# This is a generated file.  Do not edit!
+#
+# To make changes, edit the fileSystems and swapDevices NixOS options
+# in your /etc/nixos/configuration.nix file.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+
+# Filesystems.
+/dev/disk/by-uuid/6da3c562-97e5-4b79-b1f8-bab9f1f98599 / ext4 x-initrd.mount 0 1
+/dev/disk/by-uuid/92defd5c-1aac-46ce-9c7e-8b2f3bc34e55 /home ext4 defaults 0 2
+
+
+# Swap devices.
+
+
+[purefan@nixos:~]$ sudo nixos-rebuild switch
+building Nix...
+building the system configuration...
+updating GRUB 2 menu...
+Warning: os-prober will be executed to detect other bootable partitions.
+Its output will be used to detect bootable binaries on them and create new boot entries.
+lsblk: /dev/mapper/no*[0-9]: not a block device
+lsblk: /dev/mapper/raid*[0-9]: not a block device
+lsblk: /dev/mapper/disks*[0-9]: not a block device
+Found Windows Boot Manager on /dev/nvme0n1p2@/efi/Microsoft/Boot/bootmgfw.efi
+Found Pop!_OS 22.04 LTS (22.04) on /dev/nvme0n1p3
+Found Ubuntu 22.04.2 LTS (22.04) on /dev/nvme0n1p6
+stopping the following units: accounts-daemon.service
+NOT restarting the following changed units: systemd-fsck@dev-disk-by\x2duuid-92defd5c\x2d1aac\x2d46ce\x2d9c7e\x2d8b2f3bc34e55.service
+activating the configuration...
+setting up /etc...
+restarting systemd...
+reloading user units for purefan...
+setting up tmpfiles
+reloading the following units: dbus.service
+restarting the following units: polkit.service
+starting the following units: accounts-daemon.service
+the following new units were started: behe.automount, newbehe.automount
+
+[purefan@nixos:~]$ sudo cat /etc/fstab 
+# This is a generated file.  Do not edit!
+#
+# To make changes, edit the fileSystems and swapDevices NixOS options
+# in your /etc/nixos/configuration.nix file.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+
+# Filesystems.
+/dev/disk/by-uuid/6da3c562-97e5-4b79-b1f8-bab9f1f98599 / ext4 x-initrd.mount 0 1
+/dev/disk/by-label/behe /behe ntfs rw,x-systemd.automount 0 2
+/dev/disk/by-uuid/92defd5c-1aac-46ce-9c7e-8b2f3bc34e55 /home ext4 defaults 0 2
+/dev/disk/by-label/newbehe /newbehe ext4 rw,users,x-systemd.automount,x-initrd.mount,defaults 0 2
+
+
+# Swap devices.
