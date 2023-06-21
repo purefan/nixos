@@ -22,7 +22,7 @@
   home.packages = [
     pkgs.htop
     pkgs.vscode
-    pkgs.brave 
+    pkgs.brave
     pkgs.tigervnc # enable emulate middle figer in input
     pkgs.ferdium
     pkgs.git
@@ -37,6 +37,7 @@
     pkgs.gtop # requested by https://cinnamon-spices.linuxmint.com/applets/view/79
     # 14/06/2023
     pkgs.nodenv # nvm didnt work within 5 minutes
+    pkgs.node-build # required to do nodenv install <node-version>
     pkgs.nix-index # needed for nix-locate
   ];
 
