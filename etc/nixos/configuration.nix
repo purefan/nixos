@@ -25,6 +25,14 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Known hosts by router LAN definition
+  networking.extraHosts =
+    ''
+	tb-laptop-wifi	192.168.1.198
+	tb-laptop-ether	192.168.1.46
+	stephen		192.168.1.177
+	raven		192.168.1.42
+    '';
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -50,4 +50,17 @@
     ];
   };
 
+  # 21/06/2023:
+  #dconf.settings."org/cinnamon/desktop/session" = {
+  #  idle-delay = lib.hm.gvariant.mkUint32 0;
+  #};
+  dconf.settings = {
+    "org/cinnamon/desktop/session" = {
+        idle-delay = lib.hm.gvariant.mkUint32 0;
+    };
+    "org/cinnamon/desktop/screensaver" = {
+        lock-delay = lib.hm.gvariant.mkUint32 3600;
+        lock-enabled = false;
+    };
+  };
 }
