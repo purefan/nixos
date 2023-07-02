@@ -144,25 +144,13 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  # Manually added by purefan
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
-  boot.supportedFilesystems = [ "ntfs" ];
-
-  # Try to auto-mount behe
-  fileSystems."/behe" = {
+  fileSystems."/mnt/behe" = {
     device = "/dev/disk/by-label/behe";
     fsType = "ntfs";
-    options = [ 
-      "rw" 
-#      "uid=1000" 
-#      "noauto" #dont mount until needed
-#      "nodiratime"
-#      "noatime"
-#      "_netdev" # wait for network
-      "x-systemd.automount" # mount when accessed
+    options = [
+      "rw"
     ];
-  }; 
+  };
 
   fileSystems."/newbehe" = {
     device = "/dev/disk/by-label/newbehe";
