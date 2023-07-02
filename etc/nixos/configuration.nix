@@ -152,27 +152,7 @@
     ];
   };
 
-  fileSystems."/newbehe" = {
-    device = "/dev/disk/by-label/newbehe";
-    fsType = "ext4";
-    options = [
-      "rw"
-      "users"
-      "x-systemd.automount" # mount when accessed
-      "x-initrd.mount"
-      "defaults"
-    ];
-  };
-
-#  services.udisks2.settings = {
-#    "mount_options.conf" = {
-#      defaults = {
-#        ntfs_defaults = "uid=$UID,gid=$GID,noatime,prealloc";
-#      };
-#    };
-#  };
-  # https://discourse.nixos.org/t/how-to-automatically-mount-external-hard-drive/15563/3 : 
-  services.udisks2.enable = true;
-  services.gvfs.enable = true;
+  # 18/06/2023 try to disable bluetooth since there are entries in journal
+  hardware.bluetooth.enable = false;
 
 }
