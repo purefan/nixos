@@ -155,4 +155,12 @@
   # 18/06/2023 try to disable bluetooth since there are entries in journal
   hardware.bluetooth.enable = false;
 
+ # open ports for discord
+   networking.firewall.allowedUDPPortRanges = [
+     {
+         from = 50000;
+         to = 65535;
+     }
+   ];
+
 }
