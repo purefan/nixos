@@ -35,10 +35,14 @@
     pkgs.obs-studio # 12/06/2023
     pkgs.spotify # 13/06/2023
     pkgs.gtop # requested by https://cinnamon-spices.linuxmint.com/applets/view/79
-    # 14/06/2023
-    pkgs.nodenv # nvm didnt work within 5 minutes
-    pkgs.node-build # required to do nodenv install <node-version>
     pkgs.nix-index # needed for nix-locate
+    pkgs.nodejs_18
+    pkgs.wireshark # 30/jun/2023
+    pkgs.steam # works nice
+    pkgs.gnumake
+    pkgs.gcc
+    pkgs.unzip
+    pkgs.wget
   ];
 
   programs.vscode = {
@@ -51,9 +55,6 @@
   };
 
   # 21/06/2023:
-  #dconf.settings."org/cinnamon/desktop/session" = {
-  #  idle-delay = lib.hm.gvariant.mkUint32 0;
-  #};
   dconf.settings = {
     "org/cinnamon/desktop/session" = {
         idle-delay = lib.hm.gvariant.mkUint32 0;
@@ -63,4 +64,18 @@
         lock-enabled = false;
     };
   };
+
+
+  # generation 6 is safe
+  # generation 9 is safe
+  # rollback to generation 9:
+  # /nix/store/ak5bfzw8jws9rsg4p6fq4h8s197y73wj-home-manager-generation/activate
+
+  # open ports for discord
+  #networking.firewall.allowedUDPPortRanges = [
+  #  {
+  #      from = 50000;
+  #      to = 65535;
+  #  }
+  #];
 }

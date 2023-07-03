@@ -11,9 +11,25 @@
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  # 23/06/2023
+  #boot.loader.systemd-boot.extraEntries = [
+  #  { name = "Ubuntu"; loader = "/boot/vmlinuz"; options = "root=PARTUUID=f66d0a54-8320-4ea1-a3de-31f8acf042e5 rw"; }
+  #  { name = "POP_OS!"; loader = "/boot/vmlinuz"; options = "root=PARTUUID=5b39bc3a-47b2-4917-bf10-7941380bd305 rw"; }
+  #];
+  boot.loader.systemd-boot.extraEntries = {
+    "Ubuntu.conf" = ''
+      title Ubuntu
+      linux /boot/vmlinuz
+      options root=PARTUUID=f66d0a54-8320-4ea1-a3de-31f8acf042e5 rw
+    '';
+    "POP_OS.conf" = ''
+      title POP_OS
+      linux /boot/vmlinuz
+      options root=PARTUUID=PARTUUID=5b39bc3a-47b2-4917-bf10-7941380bd305 rw
+    '';
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -26,7 +42,7 @@
   networking.networkmanager.enable = true;
 
   # Known hosts by router LAN definition
-  networking.extraHosts =
+  networking.extraHosts = 
     ''
 	tb-laptop-wifi	192.168.1.198
 	tb-laptop-ether	192.168.1.46
@@ -98,8 +114,6 @@
     packages = with pkgs; [
       firefox
       home-manager
-#      nodejs_18
-      
     #  thunderbird
     ];
   };
@@ -113,8 +127,7 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     pkgs.home-manager
-    # 14/06/2023
-    pkgs.ntfs3g 
+    pkgs.ntfs3g
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -147,8 +160,8 @@
   fileSystems."/mnt/behe" = {
     device = "/dev/disk/by-label/behe";
     fsType = "ntfs";
-    options = [
-      "rw"
+    options = [ 
+      "rw" 
     ];
   };
 
@@ -157,10 +170,15 @@
 
  # open ports for discord
    networking.firewall.allowedUDPPortRanges = [
-     {
+     { 
          from = 50000;
          to = 65535;
      }
    ];
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
 }
