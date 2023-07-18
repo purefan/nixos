@@ -161,7 +161,9 @@
     device = "/dev/disk/by-label/behe";
     fsType = "ntfs";
     options = [ 
-      "rw" 
+      "rw"
+      "uid=1000"
+      "gid=100"
     ];
   };
 

@@ -43,6 +43,10 @@
     pkgs.gcc
     pkgs.unzip
     pkgs.wget
+    pkgs.ncdu
+    pkgs.heroic # needed for red dead redemption 2 apparently
+    pkgs.lsof
+    pkgs.openshot-qt
   ];
 
   programs.vscode = {
