@@ -19,6 +19,12 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      export PATH="$HOME/bin:$PATH"
+    '';
+  };
   home.packages = [
     pkgs.htop
     pkgs.vscode
