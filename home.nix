@@ -23,8 +23,25 @@
     enable = true;
     initExtra = ''
       export PATH="$HOME/bin:$PATH"
+      export AWS_PAGER=""
     '';
   };
+
+
+  # https://mynixos.com/home-manager/options/xdg.configFile.%3Cname%3E
+  home = {
+    file = {
+      "bin/.migge-test" = {
+        executable = true;
+        text = ''
+          #!/usr/bin/env bash
+          echo "testing"
+        '';
+      };
+    };
+  };
+
+
   home.packages = [
     pkgs.htop
     pkgs.vscode
@@ -39,10 +56,12 @@
     pkgs.scid-vs-pc
     pkgs.gparted
     pkgs.obs-studio # 12/06/2023
+    # NDI needs a newer sha256, I submitted a pull request on github
+    #pkgs.obs-studio-plugins.obs-ndi # to use the phone as webcam https://obs.camera/docs/getting-started/
     pkgs.spotify # 13/06/2023
     pkgs.gtop # requested by https://cinnamon-spices.linuxmint.com/applets/view/79
     pkgs.nix-index # needed for nix-locate
-    pkgs.nodejs_18
+    pkgs.nodejs_20
     pkgs.wireshark # 30/jun/2023
     pkgs.steam # works nice
     pkgs.gnumake
@@ -53,6 +72,22 @@
     pkgs.heroic # needed for red dead redemption 2 apparently
     pkgs.lsof
     pkgs.openshot-qt
+    pkgs.godot_4 # game engine
+    pkgs.gimp-with-plugins
+    pkgs.gdb # trying to debug vscode crashing (did it twice-in-once)
+    pkgs.peek
+    pkgs.joplin-desktop
+    pkgs.mysql-workbench
+    pkgs.ruby_3_2 # Needed for jekyll
+    pkgs.dbeaver
+    pkgs.cmake
+    pkgs.postgresql
+    pkgs.awscli2
+    pkgs.docker
+    pkgs.zip
+    pkgs.jq
+    pkgs.vlc
+    pkgs.flameshot
   ];
 
   programs.vscode = {
@@ -62,6 +97,11 @@
         ms-vscode-remote.remote-ssh
         ms-vsliveshare.vsliveshare
     ];
+    # Good idea but replaces everything, so not suitable for
+    # when you have already installed and conf-ed stuff
+    # userSettings = {
+    #   "workbench.panel.defaultLocation" = "right";
+    # };
   };
 
   # 21/06/2023:
@@ -81,11 +121,5 @@
   # rollback to generation 9:
   # /nix/store/ak5bfzw8jws9rsg4p6fq4h8s197y73wj-home-manager-generation/activate
 
-  # open ports for discord
-  #networking.firewall.allowedUDPPortRanges = [
-  #  {
-  #      from = 50000;
-  #      to = 65535;
-  #  }
-  #];
+  # opening ports for discord is done in /etc/nixos/configuration.nix
 }

@@ -110,7 +110,7 @@
   users.users.purefan = {
     isNormalUser = true;
     description = "purefan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       home-manager
@@ -128,6 +128,7 @@
   #  wget
     pkgs.home-manager
     pkgs.ntfs3g
+    docker
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -182,5 +183,11 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
+
+  virtualisation.containerd.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless.enable = true;
+  virtualisation.docker.rootless.setSocketVariable = true;
+
 
 }
